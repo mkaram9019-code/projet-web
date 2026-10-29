@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Dar Of Luggage - Consigne à bagages sécurisée au Maroc &amp; Monde</title>
+  <meta name="description" content="Consignez vos bagages en toute sécurité dès 35 DH par jour avec Dar Of Luggage. Carte interactive, consignes vérifiées 24/7 au Maroc et dans le monde, garantie 100 000 DH." />
+  <meta property="og:title" content="Dar Of Luggage - Consigne à bagages près de vous" />
+  <meta property="og:description" content="Consignez vos bagages en toute sécurité dès 35 DH par jour avec Dar Of Luggage. Carte interactive, consignes vérifiées 24/7 au Maroc et dans le monde, garantie 100 000 DH." />
+  
+  <!-- F.28 : Police Cairo et Plus Jakarta Sans chargées une seule fois via <link> pour de meilleures performances -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Feuille de style CSS3 personnalisée (Palette Bleu Nuit & Or, aucun framework) -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="logo-gold.svg" />
+  <link rel="alternate icon" type="image/png" href="logo-gold.png" />
+</head>
+<body>
+
+  <!-- En-tête flottant avec barre de navigation -->
+  <header class="site-header floating-header">
+    <div class="container navbar">
+      <!-- Logo et Identité de marque (Palette Bleu Nuit #0A1128 et Or #D4A63A) -->
+      <a href="index.html" class="brand-logo" aria-label="Dar Of Luggage Accueil">
+        <img src="logo-gold.svg" 
+             alt="Dar Of Luggage Logo" 
+             class="brand-logo-img" 
+             width="28" 
+             height="44" 
+             onerror="this.onerror=null; this.src='logo-gold.png';" />
+        <div class="brand-text">
+          <span class="brand-title" data-i18n="brand_title">Dar of luggage</span>
+          <span class="brand-subtitle" data-i18n="brand_subtitle">Réseau de consigne sécurisé</span>
+        </div>
+      </a>
+
+      <!-- Liens de navigation bureau -->
+      <nav class="nav-links">
+        <a href="#how-it-works" class="nav-link" data-i18n="nav_how_it_works">Comment ça marche</a>
+        <a href="#locations" class="nav-link" data-i18n="nav_destinations">Destinations</a>
+        <a href="#testimonials" class="nav-link" data-i18n="nav_reviews">Avis clients</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">Aide &amp; FAQ</a>
+      </nav>
+
+      <!-- Actions à droite : Choix de langue et Connexion -->
+      <div class="nav-actions">
+        <!-- Sélecteur de langue dynamique (FR / AR / EN) -->
+        <div class="lang-selector-wrapper" id="langSelectorWrapper">
+          <button type="button" class="lang-selector-btn" id="langSelectorBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choisir la langue">
+            <span class="lang-flag" id="currentLangFlag">🇫🇷</span>
+            <span class="lang-label desktop-only" id="currentLangLabel">Français</span>
+            <span class="lang-code mobile-only" id="currentLangCode">FR</span>
+            <svg class="lang-chevron desktop-only" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="lang-dropdown hidden" id="langDropdown" role="menu">
+            <button type="button" class="lang-opt active" data-lang="fr" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇫🇷</span>
+                <span class="lang-opt-name">Français</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+            <button type="button" class="lang-opt" data-lang="ar" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇲🇦</span>
+                <span class="lang-opt-name">العربية</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+            <button type="button" class="lang-opt" data-lang="en" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇬🇧</span>
+                <span class="lang-opt-name">English</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <a href="search.html" class="btn-primary desktop-only">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span data-i18n="nav_find_storage">Trouver une consigne</span>
+        </a>
+
+        <a href="login.html" id="navUserBtn" class="btn-outline nav-login-btn" aria-label="Connexion">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="nav-btn-text desktop-only" data-i18n="nav_sign_in">Connexion</span>
+        </a>
+
+        <!-- Bouton hamburger mobile -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Ouvrir le menu mobile">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tiroir de navigation sur mobile -->
+    <div id="mobileNav" class="mobile-nav">
+      <a href="#how-it-works" class="mobile-nav-link" data-i18n="nav_how_it_works">Comment ça marche</a>
+      <a href="#locations" class="mobile-nav-link" data-i18n="nav_destinations">Destinations populaires</a>
+      <a href="search.html" class="mobile-nav-link" data-i18n="nav_find_storage">Trouver une consigne</a>
+      <a href="#benefits" class="mobile-nav-link" data-i18n="nav_guarantee">Garantie 100 000 DH</a>
+      <a href="#testimonials" class="mobile-nav-link" data-i18n="nav_reviews">Avis clients</a>
+      <a href="#faq" class="mobile-nav-link" data-i18n="nav_faq">Aide &amp; FAQ</a>
+      <a href="login.html" class="btn-primary btn-drawer-login" data-i18n="nav_sign_in">Connexion / Mon Compte</a>
+    </div>
+  </header>
+
+  <!-- Hero Section : fond décoratif bleu nuit & or (marbre) avec formulaire flottant -->
+  <section class="hero-map-section" aria-label="Réservation de consignes à bagages">
+    <!-- Fond décoratif : motif zellige en SVG (voir .hero-bg dans style.css) -->
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <!-- Carte de recherche flottante style Nannybag -->
+    <div class="hero-overlay-container">
+      <div class="floating-booking-card nanny-style">
+        
+        <!-- Badge de réputation avec mention académique -->
+        <div class="hero-pill-badge" data-i18n="hero_badge">
+          ★ 4.9 • Plus de 3 000 000 de bagages stockés (fictif)
+        </div>
+
+        <h1 class="hero-title" data-i18n="hero_title">Consigne à bagages près de vous</h1>
+        <p class="hero-subtitle">
+          <span data-i18n="hero_subtitle_prefix">Dès </span><strong>35 DH/jour</strong><span data-i18n="hero_subtitle_suffix"> • Assuré jusqu'à 100 000 DH</span>
+        </p>
+
+        <!-- Formulaire de recherche avec champs sous forme de pilules -->
+        <form id="heroBookingForm" action="search.html" method="GET" class="hero-form-nanny">
+          
+          <!-- Pilule de sélection de ville -->
+          <div class="form-pill-field" id="openLocationModalBtn" role="button" tabindex="0" aria-label="Choisir la ville">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <div class="field-info">
+              <span class="field-label" data-i18n="field_where">OÙ ?</span>
+              <input type="text" id="heroCityInput" name="city" class="field-value" value="Marrakech, Maroc" readonly />
+            </div>
+          </div>
+
+          <!-- Pilule de sélection de date -->
+          <div class="form-pill-field" id="heroDatePill" role="button" tabindex="0" aria-label="Choisir la date">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <div class="field-info">
+              <span class="field-label" data-i18n="field_dates">DATES</span>
+              <input type="text" id="selectedDateInput" class="field-value" value="Aujourd'hui" readonly />
+              <input type="date" id="heroDateNative" class="sr-only" tabindex="-1" aria-hidden="true" />
+            </div>
+          </div>
+
+          <!-- Pilule de compteur de bagages (F.26) -->
+          <div class="form-pill-field" id="bagCounterWrapper">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="7" width="12" height="14" rx="2"></rect>
+              <path d="M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"></path>
+            </svg>
+            <div class="field-info">
+              <span class="field-label" data-i18n="field_luggage">BAGAGES</span>
+              <input type="text" id="heroBagInput" class="field-value" value="2 bagages" readonly />
+            </div>
+            <div class="counter-control-small">
+              <button type="button" id="heroBagMinus" class="counter-step-btn" aria-label="Diminuer les bagages">-</button>
+              <span id="heroBagDisplay" class="counter-num">2</span>
+              <button type="button" id="heroBagPlus" class="counter-step-btn" aria-label="Augmenter les bagages">+</button>
+            </div>
+          </div>
+
+          <!-- Bouton de soumission -->
+          <button type="submit" class="hero-cta-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span data-i18n="hero_search_btn">Rechercher une consigne</span>
+          </button>
+        </form>
+
+        <!-- F.26 : Badges de réassurance sous la carte -->
+        <div class="hero-trust-row">
+          <span class="trust-item" data-i18n="trust_cancellation">✓ Annulation gratuite</span>
+          <span class="trust-item" data-i18n="trust_guarantee">✓ Garantie 100 000 DH</span>
+          <span class="trust-item" data-i18n="trust_instant_pass">✓ Pass numérique instantané</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1 : 3 étapes simples -->
+  <section id="how-it-works" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="how_tag">Simple &amp; Transparent</span>
+        <h2 class="section-title" data-i18n="how_title">3 étapes simples pour déposer vos bagages</h2>
+        <p class="section-desc" data-i18n="how_desc">
+          Pas de files d'attente, pas de monnaie, ni restriction de casier. Déposez vos sacs en quelques secondes et profitez de votre séjour les mains libres.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Étape 1 -->
+        <article class="step-card">
+          <div class="step-icon-box">
+            <span class="step-number">1</span>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="step-body">
+            <h3 class="step-title" data-i18n="step1_title">Réservez en ligne en quelques secondes</h3>
+            <p class="step-text" data-i18n="step1_text">
+              Choisissez votre ville ou point de repère, dates et nombre de bagages. Recevez instantanément votre bon de confirmation numérique.
+            </p>
+          </div>
+          <div class="step-preview">
+            <span class="preview-tag" data-i18n="step1_preview_tag">Confirmation Instantanée</span>
+            <div class="preview-title" data-i18n="step1_preview_title">Gare / Médina • Pass QR</div>
+            <div class="preview-sub" data-i18n="step1_preview_sub">Scellés de sécurité inclus • 35 DH</div>
+          </div>
+        </article>
+
+        <!-- Étape 2 -->
+        <article class="step-card">
+          <div class="step-icon-box">
+            <span class="step-number">2</span>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="step-body">
+            <h3 class="step-title" data-i18n="step2_title">Déposez vos bagages</h3>
+            <p class="step-text" data-i18n="step2_text">
+              Rendez-vous à l'hôtel ou la boutique partenaire. Présentez votre QR code au comptoir. Notre équipe applique le scellé de sécurité numéroté.
+            </p>
+          </div>
+          <div class="step-preview">
+            <span class="preview-tag" data-i18n="step2_preview_tag">Dépôt en 30 secondes</span>
+            <div class="preview-title" data-i18n="step2_preview_title">Hôtel Partenaire Vérifié</div>
+            <div class="preview-sub" data-i18n="step2_preview_sub">Réceptionniste 24/7 • Surveillance continue</div>
+          </div>
+        </article>
+
+        <!-- Étape 3 -->
+        <article class="step-card">
+          <div class="step-icon-box">
+            <span class="step-number">3</span>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="step-body">
+            <h3 class="step-title" data-i18n="step3_title">Profitez les mains libres</h3>
+            <p class="step-text" data-i18n="step3_text">
+              Explorez musées, souks, monuments et cafés sans traîner vos valises. Récupérez vos bagages à tout moment en montrant votre QR code.
+            </p>
+          </div>
+          <div class="step-preview">
+            <span class="preview-tag" data-i18n="step3_preview_tag">Liberté Totale</span>
+            <div class="preview-title" data-i18n="step3_preview_title">Souks, Cafés &amp; Monuments</div>
+            <div class="preview-sub" data-i18n="step3_preview_sub">Retrait à toute heure • Zéro contrainte</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2 : Garanties & Avantages Accordéon -->
+  <section id="benefits" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="guarantee_tag">Sécurité Maximale</span>
+        <h2 class="section-title" data-i18n="guarantee_title">Sécurité, garantie &amp; avantages exclusifs</h2>
+        <p class="section-desc" data-i18n="guarantee_desc">
+          Basé sur un réseau de partenaires physiques rigoureusement vérifiés et une couverture d'assurance inégalée.
+        </p>
+      </div>
+
+      <div class="benefits-layout">
+        <div class="benefits-feature-card">
+          <div>
+            <span class="feature-badge" data-i18n="guarantee_box_badge">La Garantie Dar</span>
+            <h3 class="feature-heading" data-i18n="guarantee_box_title">Garantie de protection de 100 000 DH par bagage</h3>
+            <p class="guarantee-text" data-i18n="guarantee_box_text">
+              Contrairement aux consignes de gare traditionnelles qui n'offrent aucune responsabilité, chaque réservation sur Dar Of Luggage est couverte par une assurance complète.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item" data-i18n="feature_list_1">✓ Scellés de sécurité inviolables fournis au dépôt</li>
+              <li class="feature-item" data-i18n="feature_list_2">✓ 100% de partenaires physiquement vérifiés (Hôtels, Boutiques)</li>
+              <li class="feature-item" data-i18n="feature_list_3">✓ Annulation gratuite à tout moment avant le dépôt</li>
+            </ul>
+          </div>
+
+          <div class="stats-row">
+            <div>
+              <span class="stat-label" data-i18n="stat_rate_label">Taux de satisfaction</span>
+              <span class="stat-number">99.8%</span>
+            </div>
+            <div>
+              <span class="stat-label" data-i18n="stat_bags_label">Bagages protégés</span>
+              <span class="stat-number">3,000,000+</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="benefits-accordion-group">
+          <div class="accordion-card active">
+            <div class="accordion-header">
+              <span data-i18n="accordion_1_title">🛡️ Protection d'assurance de 100 000 DH (fictif)</span>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body" data-i18n="accordion_1_body">
+              Chaque bagage est couvert dès l'instant du dépôt jusqu'au retrait contre les dommages, la perte ou le vol. Un certificat officiel est automatiquement délivré.
+            </div>
+          </div>
+
+          <div class="accordion-card">
+            <div class="accordion-header">
+              <span data-i18n="accordion_2_title">🔄 Politique d'annulation 100% gratuite</span>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body" data-i18n="accordion_2_body">
+              Vol ou train retardé ? Changement de programme ? Annulez à tout moment avant votre heure de dépôt pour un remboursement intégral immédiat sans pénalités.
+            </div>
+          </div>
+
+          <div class="accordion-card">
+            <div class="accordion-header">
+              <span data-i18n="accordion_3_title">🔒 Scellés de sécurité à code-barres inviolables</span>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body" data-i18n="accordion_3_body">
+              À votre arrivée, le personnel partenaire pose des scellés numérotés sur les fermetures de chaque bagage en votre présence. Le numéro est enregistré sur votre pass numérique.
+            </div>
+          </div>
+
+          <div class="accordion-card">
+            <div class="accordion-header">
+              <span data-i18n="accordion_4_title">🕒 Support voyageur humain dédié 24h/24 et 7j/7</span>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body" data-i18n="accordion_4_body">
+              Notre équipe multilingue est disponible 24h/24 par messagerie instantanée ou e-mail pour vous guider, contacter le partenaire ou adapter votre réservation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3 : Pôles de consignes au Maroc et dans le monde
+       E.23 : Ajout de Rabat, Fès et Essaouira
+       E.21 : Calcul dynamique du nombre de consignes
+       H.37 : Fallback onerror sur les images
+  -->
+  <section id="locations" class="section section-slate">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="loc_section_tag">Présence au Maroc &amp; Monde</span>
+        <h2 class="section-title" data-i18n="loc_section_title">Pôles de consignes au Maroc et dans le monde</h2>
+        <p class="section-desc" data-i18n="loc_section_desc">
+          Déposez vos sacs dans nos centaines d'établissements vérifiés à Marrakech, Casablanca, Rabat, Fès, Essaouira et dans les capitales internationales.
+        </p>
+      </div>
+
+      <div class="cities-grid">
+        <!-- 1. Marrakech -->
+        <article class="city-card" data-city="Marrakesh" data-lat="31.6295" data-lng="-7.9811" data-custom-spots="true">
+          <img src="images/cities/marrakech.jpg" 
+               alt="Consigne Marrakech - Place Jemaa el-Fna et minaret de la Koutoubia au coucher du soleil" 
+               class="city-image city-img-marrakech" 
+               loading="lazy" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&w=800&q=80';" />
+          <div class="city-overlay">
+            <div class="city-content">
+              <span class="city-country">Maroc 🇲🇦</span>
+              <h3 class="city-name">Marrakech</h3>
+              <p class="city-spots">64 consignes vérifiées • Médina &amp; Guéliz</p>
+            </div>
+            <button type="button" class="city-action-btn" aria-label="Explorer Marrakech">Voir les consignes →</button>
+          </div>
+        </article>
+
+        <!-- 2. Casablanca -->
+        <article class="city-card" data-city="Casablanca" data-lat="33.5731" data-lng="-7.5898" data-custom-spots="true">
+          <img src="images/cities/casablanca.jpg" 
+               alt="Consigne Casablanca - Vue aérienne de la Mosquée Hassan II au coucher du soleil" 
+               class="city-image city-img-casablanca" 
+               loading="lazy" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80';" />
+          <div class="city-overlay">
+            <div class="city-content">
+              <span class="city-country">Maroc 🇲🇦</span>
+              <h3 class="city-name">Casablanca</h3>
+              <p class="city-spots">82 consignes vérifiées • Casa-Port &amp; Hassan II</p>
+            </div>
+            <button type="button" class="city-action-btn" aria-label="Explorer Casablanca">Voir les consignes →</button>
+          </div>
+        </article>
+
+        <!-- 3. Dakhla -->
+        <article class="city-card" data-city="Dakhla" data-lat="23.7136" data-lng="-15.9355" data-custom-spots="true">
+          <img src="images/cities/dakhla.jpg" 
+               alt="Consigne Dakhla - Dune de sable blanc et lagon au coucher du soleil" 
+               class="city-image city-img-dakhla" 
+               loading="lazy" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80';" />
+          <div class="city-overlay">
+            <div class="city-content">
+              <span class="city-country">Maroc 🇲🇦</span>
+              <h3 class="city-name">Dakhla</h3>
+              <p class="city-spots">30 consignes vérifiées • Dakhla Ville &amp; Baie</p>
+            </div>
+            <button type="button" class="city-action-btn" aria-label="Explorer Dakhla">Voir les consignes →</button>
+          </div>
+        </article>
+
+        <!-- 4. Tanger -->
+        <article class="city-card" data-city="Tangier" data-lat="35.7595" data-lng="-5.8340" data-custom-spots="true">
+          <img src="images/cities/tanger.jpg" 
+               alt="Consigne Tanger - Bâtiments blancs et mer turquoise surplombant le port" 
+               class="city-image city-img-tanger" 
+               loading="lazy" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80';" />
+          <div class="city-overlay">
+            <div class="city-content">
+              <span class="city-country">Maroc 🇲🇦</span>
+              <h3 class="city-name">Tanger</h3>
+              <p class="city-spots">42 consignes vérifiées • Tanger Ville &amp; Port</p>
+            </div>
+            <button type="button" class="city-action-btn" aria-label="Explorer Tanger">Voir les consignes →</button>
+          </div>
+        </article>
+
+        <!-- 5. Agadir -->
+        <article class="city-card" data-city="Agadir" data-lat="30.4278" data-lng="-9.5981" data-custom-spots="true">
+          <img src="images/cities/agadir.jpg" 
+               alt="Consigne Agadir - Marina et colline illuminée d'Agadir Oufella de nuit" 
+               class="city-image city-img-agadir" 
+               loading="lazy" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80';" />
+          <div class="city-overlay">
+            <div class="city-content">
+              <span class="city-country">Maroc 🇲🇦</span>
+              <h3 class="city-name">Agadir</h3>
+              <p class="city-spots">36 consignes vérifiées • Marina &amp; Souk El Had</p>
+            </div>
+            <button type="button" class="city-action-btn" aria-label="Explorer Agadir">Voir les consignes →</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4 : Slider d'Avis Vérifiés (H.34) -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="reviews_tag">Témoignages voyageurs</span>
+        <h2 class="section-title" data-i18n="reviews_title">Recommandé par des milliers de voyageurs</h2>
+        <p class="section-desc rating-summary" data-i18n="reviews_rating_summary">
+          Noté 4.9 sur plus de 34 288 avis vérifiés (donnée fictive).
+        </p>
+      </div>
+
+      <div class="testimonials-wrapper">
+        <div id="testimonialsTrack" class="testimonials-track">
+          <!-- Avis 1 -->
+          <article class="testimonial-card">
+            <div>
+              <div class="testimonial-header">
+                <div class="reviewer-meta">
+                  <div class="reviewer-avatar">YB</div>
+                  <div>
+                    <h4 class="reviewer-name">Youssef Benali</h4>
+                    <span class="reviewer-city">Marrakech, Maroc</span>
+                  </div>
+                </div>
+                <div class="star-rating">★★★★★</div>
+              </div>
+              <p class="testimonial-quote">
+                &quot;Déposer nos valises au Riad partenaire dans la Médina nous a permis d'explorer les souks l'esprit tranquille toute l'après-midi. Accueil chaleureux et thé à la menthe au départ !&quot;
+              </p>
+            </div>
+            <div class="testimonial-footer">
+              <span>✓ Réservation vérifiée (3 bagages)</span>
+            </div>
+          </article>
+
+          <!-- Avis 2 -->
+          <article class="testimonial-card">
+            <div>
+              <div class="testimonial-header">
+                <div class="reviewer-meta">
+                  <div class="reviewer-avatar">SM</div>
+                  <div>
+                    <h4 class="reviewer-name">Sophie Martin</h4>
+                    <span class="reviewer-city">Paris, France</span>
+                  </div>
+                </div>
+                <div class="star-rating">★★★★★</div>
+              </div>
+              <p class="testimonial-quote">
+                &quot;Une bouffée d'oxygène avant l'enregistrement à l'hôtel ! Nous avons déposé nos deux grandes valises pour 70 DH tout en visitant Montmartre les mains totalement libres.&quot;
+              </p>
+            </div>
+            <div class="testimonial-footer">
+              <span>✓ Réservation vérifiée (2 bagages)</span>
+            </div>
+          </article>
+
+          <!-- Avis 3 -->
+          <article class="testimonial-card">
+            <div>
+              <div class="testimonial-header">
+                <div class="reviewer-meta">
+                  <div class="reviewer-avatar">LG</div>
+                  <div>
+                    <h4 class="reviewer-name">Liam Gallagher</h4>
+                    <span class="reviewer-city">Londres, Royaume-Uni</span>
+                  </div>
+                </div>
+                <div class="star-rating">★★★★★</div>
+              </div>
+              <p class="testimonial-quote">
+                &quot;Les casiers de gare facturaient presque le double. Dar Of Luggage était à 2 minutes à pied, le dépôt a pris 30 secondes et nous a apporté une totale tranquillité.&quot;
+              </p>
+            </div>
+            <div class="testimonial-footer">
+              <span>✓ Réservation vérifiée (1 bagage)</span>
+            </div>
+          </article>
+
+          <!-- Avis 4 -->
+          <article class="testimonial-card">
+            <div>
+              <div class="testimonial-header">
+                <div class="reviewer-meta">
+                  <div class="reviewer-avatar">ER</div>
+                  <div>
+                    <h4 class="reviewer-name">Elena Rostova</h4>
+                    <span class="reviewer-city">Madrid, Espagne</span>
+                  </div>
+                </div>
+                <div class="star-rating">★★★★★</div>
+              </div>
+              <p class="testimonial-quote">
+                &quot;Gravir les ruelles sans valises était un pur bonheur. La réservation a pris 20 secondes sur mon smartphone. Je recommande à 100% !&quot;
+              </p>
+            </div>
+            <div class="testimonial-footer">
+              <span>✓ Réservation vérifiée (2 bagages)</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- Boutons de contrôle du Slider (H.34) -->
+        <div class="slider-controls">
+          <button id="prevReviewBtn" class="slider-btn" aria-label="Avis précédent">←</button>
+          <button id="nextReviewBtn" class="slider-btn" aria-label="Avis suivant">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5 : FAQ Accordéon -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="faq_tag">FAQ</span>
+        <h2 class="section-title" data-i18n="faq_title">Foire Aux Questions</h2>
+        <p class="section-desc" data-i18n="faq_desc">
+          Tout ce que vous devez savoir sur la réservation, la sécurité et le dépôt de vos bagages.
+        </p>
+      </div>
+
+      <div class="faq-container">
+        <details class="faq-item" open>
+          <summary class="faq-question">
+            <span data-i18n="faq_q1">Qu'est-ce que Dar Of Luggage et comment ça marche ?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer" data-i18n="faq_a1">
+            Dar Of Luggage connecte les voyageurs à des centaines d'hôtels, boutiques et partenaires certifiés. Réservez en ligne en quelques secondes, déposez vos valises avec votre QR code et profitez les mains libres.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span data-i18n="faq_q2">Combien coûte la consigne de bagages ?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer" data-i18n="faq_a2">
+            Le tarif débute à seulement 35 DH par bagage et par jour. Sans frais cachés, sans limite de poids, et inclut automatiquement la garantie de 100 000 DH ainsi que les scellés de sécurité.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span data-i18n="faq_q3">Mes bagages sont-ils en sécurité et assurés ?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer" data-i18n="faq_a3">
+            Oui ! Chaque bagage est protégé jusqu'à 100 000 DH. Tous les établissements partenaires sont audités, surveillés 24/7 et équipés de scellés inviolables dès la prise en charge.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span data-i18n="faq_q4">Y a-t-il des limites de taille ou de poids ?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer" data-i18n="faq_a4">
+            Non ! Contrairement aux casiers automatiques de gare limités par leurs dimensions, nous acceptons valises XXL, sacs à dos, poussettes et équipements sportifs au même tarif forfaitaire.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span data-i18n="faq_q5">Quelle est la politique d'annulation ?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer" data-i18n="faq_a5">
+            Annulation 100% gratuite ! Les imprévus arrivent : vous pouvez annuler votre réservation à tout moment avant l'heure prévue pour un remboursement immédiat.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pied de page (Footer) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="logo-gold.svg" 
+                 alt="Dar Of Luggage Logo" 
+                 class="brand-logo-img brand-logo-img-sm" 
+                 width="26" 
+                 height="40" 
+                 onerror="this.onerror=null; this.src='logo-gold.png';" />
+            <span class="brand-title brand-title-sm" data-i18n="brand_title">Dar Of Luggage</span>
+          </div>
+          <p class="footer-text" data-i18n="footer_text">
+            Le premier réseau de consigne à bagages sécurisé au Maroc et dans le monde. Déposez vos sacs dès 35 DH/jour dans des hôtels et boutiques vérifiés.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title" data-i18n="footer_nav_title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link" data-i18n="nav_home">Accueil</a></li>
+            <li><a href="search.html" class="footer-link" data-i18n="nav_find_storage">Trouver une consigne</a></li>
+            <li><a href="#how-it-works" class="footer-link" data-i18n="nav_how_it_works">Comment ça marche</a></li>
+            <li><a href="#benefits" class="footer-link" data-i18n="nav_guarantee">Garantie 100 000 DH</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title" data-i18n="footer_popular_hubs">Villes populaires</h4>
+          <ul class="footer-links">
+            <li><a href="search.html?city=Marrakesh" class="footer-link">Marrakech Médina</a></li>
+            <li><a href="search.html?city=Casablanca" class="footer-link">Casablanca Casa-Port</a></li>
+            <li><a href="search.html?city=Rabat" class="footer-link">Rabat Agdal TGV</a></li>
+            <li><a href="search.html?city=Tangier" class="footer-link">Tanger Ville &amp; Port</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title" data-i18n="footer_account_title">Compte &amp; Aide</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link" data-i18n="nav_sign_in">Connexion / Inscription</a></li>
+            <li><a href="#faq" class="footer-link" data-i18n="nav_faq">Aide &amp; FAQ</a></li>
+            <li><a href="mailto:support@darofluggage.com" class="footer-link">Support 24/7</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <!-- H.36 : Mention académique obligatoire des données fictives -->
+        <div class="footer-academic-disclaimer" data-i18n="footer_academic_note">
+          Projet académique – données et statistiques fictives (3 000 000 de bagages, 34 288 avis et garantie 100 000 DH sont fictifs).
+        </div>
+
+        <div class="footer-bottom-row">
+          <p data-i18n="footer_rights">© 2026 Dar Of Luggage. Projet Académique (FSSM). Tous droits réservés.</p>
+          <div class="flex-gap-20">
+            <span data-i18n="footer_privacy">Confidentialité</span>
+            <span data-i18n="footer_terms">Conditions d'utilisation</span>
+            <span data-i18n="footer_security_guarantee">Garantie de Sécurité</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de sélection de ville (Accueil) -->
+  <div id="locationModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="locationModalTitle">
+    <div class="modal-card location-modal-card">
+      <div class="modal-header-row">
+        <div>
+          <h3 id="locationModalTitle" class="modal-title" data-i18n="loc_modal_title">Sélectionner un lieu de stockage</h3>
+          <p class="modal-subtitle" data-i18n="loc_modal_sub">Recherchez ou choisissez une ville pour afficher les consignes partenaires</p>
+        </div>
+        <button id="closeLocationModal" class="modal-close-btn" aria-label="Fermer le sélecteur">&times;</button>
+      </div>
+
+      <div class="form-group mt-16">
+        <input type="text" id="modalLocationInput" class="form-input" placeholder="Entrez une ville (ex: Marrakech, Rabat, Paris)..." data-i18n-placeholder="search_input_placeholder" autocomplete="off" />
+      </div>
+
+      <div class="modal-cities-list">
+        <div class="modal-section-label" data-i18n="search_popover_title">Destinations populaires au Maroc &amp; Monde</div>
+        <div class="modal-cities-chips">
+          <button type="button" class="modal-city-chip" data-city="Marrakesh">🇲🇦 Marrakech</button>
+          <button type="button" class="modal-city-chip" data-city="Casablanca">🇲🇦 Casablanca</button>
+          <button type="button" class="modal-city-chip" data-city="Rabat">🇲🇦 Rabat</button>
+          <button type="button" class="modal-city-chip" data-city="Fes">🇲🇦 Fès</button>
+          <button type="button" class="modal-city-chip" data-city="Tangier">🇲🇦 Tanger</button>
+          <button type="button" class="modal-city-chip" data-city="Agadir">🇲🇦 Agadir</button>
+          <button type="button" class="modal-city-chip" data-city="Essaouira">🇲🇦 Essaouira</button>
+          <button type="button" class="modal-city-chip" data-city="Dakhla">🇲🇦 Dakhla</button>
+          <button type="button" class="modal-city-chip" data-city="Paris">🇫🇷 Paris</button>
+          <button type="button" class="modal-city-chip" data-city="London">🇬🇧 Londres</button>
+          <button type="button" class="modal-city-chip" data-city="Madrid">🇪🇸 Madrid</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de réservation rapide avec calcul jour/nuit et vrai QR Code (A.2, A.3, E.24, E.25) -->
+  <div id="bookingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalSpotTitle">
+    <div class="modal-card">
+      <button id="closeBookingModal" class="modal-close-btn" aria-label="Fermer la modal">&times;</button>
+      <div id="bookingModalContent">
+        <div class="mb-20">
+          <span class="spot-type-tag" id="modalSpotType">Hôtel</span>
+          <!-- A.3 : Pas de data-i18n="modal_title" pour ne pas écraser le nom du spot sélectionné -->
+          <h3 class="modal-spot-title" id="modalSpotTitle">Point de consigne</h3>
+          <p class="modal-spot-location" id="modalSpotLocation" data-i18n="modal_verified_tag">Point de consigne vérifié</p>
+        </div>
+
+        <form id="bookingModalForm">
+          <!-- E.24 : Date de dépôt ET Date de retrait pour calculer le nombre de jours exact -->
+          <div class="modal-two-cols">
+            <div class="form-group">
+              <label class="form-label" for="bookingDropDate" data-i18n="modal_date_label">Date de dépôt</label>
+              <input type="date" id="bookingDropDate" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bookingPickupDate" data-i18n="modal_pickup_label">Date de retrait</label>
+              <input type="date" id="bookingPickupDate" class="form-input" required />
+            </div>
+          </div>
+
+          <div class="bag-counter-box">
+            <div>
+              <span class="modal-label-strong" data-i18n="modal_bags_label">Nombre de bagages</span>
+              <span class="modal-label-sub" data-i18n="modal_bags_sub">Tous formats et poids acceptés sans supplément</span>
+            </div>
+            <div class="counter-control">
+              <button type="button" id="bagCountMinus" class="counter-btn" aria-label="Diminuer bagages">-</button>
+              <span class="modal-count" id="modalBagCountDisplay">2</span>
+              <button type="button" id="bagCountPlus" class="counter-btn" aria-label="Augmenter bagages">+</button>
+            </div>
+          </div>
+
+          <div class="form-group mb-12">
+            <label class="form-label" for="bookingCustomerName" data-i18n="modal_name_label">Nom complet</label>
+            <input type="text" id="bookingCustomerName" class="form-input" placeholder="ex. Alex Dupont" required />
+          </div>
+
+          <div class="form-group mb-16">
+            <label class="form-label" for="bookingCustomerEmail" data-i18n="modal_email_label">Adresse e-mail</label>
+            <input type="email" id="bookingCustomerEmail" class="form-input" placeholder="ex. alex@gmail.com" required />
+          </div>
+
+          <div class="price-summary-box">
+            <div class="price-row">
+              <span data-i18n="modal_price_storage">Consigne bagages</span>
+              <span class="modal-price" id="modalPriceSubtotal">70,00 MAD</span>
+            </div>
+            <div class="price-row">
+              <span data-i18n="modal_price_insurance">Garantie de protection 100 000 DH</span>
+              <span class="text-gold-strong" data-i18n="modal_price_included">INCLUS</span>
+            </div>
+            <div class="price-row">
+              <span data-i18n="modal_price_seals">Scellés de sécurité inviolables</span>
+              <span class="text-gold-strong" data-i18n="modal_price_free">GRATUIT</span>
+            </div>
+            <div class="price-row price-total">
+              <span data-i18n="modal_price_total">Montant total</span>
+              <span id="modalPriceTotal">70,00 MAD</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">
+            <span data-i18n="modal_submit_btn_text">Confirmer &amp; Générer le Pass QR • </span>
+            <span id="modalSubmitPrice">70,00 MAD</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteneur global de notifications Toast -->
+  <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
+
+  <!-- E.25 : Librairie qrcode.js via CDN pour générer de vrais QR Codes exploitables -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Script Maître de l'application -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

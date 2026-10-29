@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Trouver une consigne - Dar Of Luggage</title>
+  <meta name="description" content="Recherchez des points de consigne à bagages vérifiés à Marrakech, Casablanca, Rabat, Fès, Tanger et dans le monde dès 35 DH/jour avec Dar Of Luggage." />
+  
+  <!-- Polices Cairo et Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  
+  <!-- Feuille de style personnalisée -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="logo-gold.svg" />
+  <link rel="alternate icon" type="image/png" href="logo-gold.png" />
+</head>
+<body class="search-page-body">
+
+  <!-- Barre supérieure flottante avec filtres style Nannybag -->
+  <header class="nanny-top-bar" id="nannyTopBar">
+    <!-- Ligne 1 sur mobile : Logo + Connexion + Langue + Menu (ou intégré en ligne sur desktop via CSS) -->
+    <div class="top-bar-mobile-row">
+      <!-- Bouton logo de retour à l'accueil -->
+      <a href="index.html" class="search-brand-pill" title="Retour à l'accueil" aria-label="Dar Of Luggage Accueil">
+        <img src="logo-gold.svg" 
+             alt="Dar Of Luggage Logo" 
+             width="20" 
+             height="32" 
+             class="search-brand-logo-img" 
+             onerror="this.onerror=null; this.src='logo-gold.png';" />
+        <span class="desktop-only brand-title-bold">Dar Of Luggage</span>
+      </a>
+
+      <div class="top-bar-right">
+        <a href="login.html" id="navUserBtn" class="btn-outline top-bar-login-btn" aria-label="Connexion">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span data-i18n="nav_sign_in" class="desktop-only">Connexion</span>
+        </a>
+
+        <!-- Sélecteur de langue -->
+        <div class="lang-selector-wrapper" id="langSelectorWrapper">
+          <button type="button" class="lang-selector-btn" id="langSelectorBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choisir la langue">
+            <span class="lang-flag" id="currentLangFlag">🇫🇷</span>
+            <span class="lang-label desktop-only" id="currentLangLabel">Français</span>
+            <span class="lang-code mobile-only" id="currentLangCode">FR</span>
+            <svg class="lang-chevron desktop-only" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="lang-dropdown hidden" id="langDropdown" role="menu">
+            <button type="button" class="lang-opt active" data-lang="fr" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇫🇷</span>
+                <span class="lang-opt-name">Français</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+            <button type="button" class="lang-opt" data-lang="ar" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇲🇦</span>
+                <span class="lang-opt-name">العربية</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+            <button type="button" class="lang-opt" data-lang="en" role="menuitem">
+              <div class="lang-opt-left">
+                <span class="lang-opt-flag">🇬🇧</span>
+                <span class="lang-opt-name">English</span>
+              </div>
+              <span class="lang-check">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <a href="index.html" class="menu-btn" title="Accueil" aria-label="Menu principal">☰</a>
+      </div>
+    </div>
+
+    <!-- Ligne 2 sur mobile : Conteneur horizontal déroulant fluide pour les pilules avec scroll-snap -->
+    <div class="top-bar-pills-wrapper" id="searchPillsWrapper">
+      <div class="pill-group" id="searchPillGroup">
+        <!-- Pilule Sélecteur de Ville -->
+        <button type="button" class="nanny-pill" id="btnLocationPill" aria-haspopup="true" aria-expanded="false" aria-controls="locationPanel">
+          <svg class="icon-gold-filled" width="16" height="16" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3" fill="#fff"></circle>
+          </svg>
+          <span id="selectedCityText">Marrakech</span>
+        </button>
+
+        <!-- Pilule Dates -->
+        <button type="button" class="nanny-pill" id="btnDatesPill" aria-label="Choisir la date de dépôt">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span data-i18n="field_dates">DATES</span>
+        </button>
+
+        <!-- Pilule Horaires 24/7 -->
+        <button type="button" class="nanny-pill" id="btnHoursPill" title="Filtre d'horaires d'ouverture">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span data-i18n="hours_filter_all">Tous les horaires</span>
+          <span class="arrow-down">⌄</span>
+        </button>
+
+        <!-- Pilule Tri Avis & Prix -->
+        <button type="button" class="nanny-pill desktop-only" id="btnPinFilterPill" title="Filtrer avis et prix">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span data-i18n="sort_default">Avis &amp; Prix</span>
+          <span class="arrow-down">⌄</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Input date natif caché déclenché par la pilule Dates -->
+  <input class="hidden-date-input" type="date" id="searchDateInput" aria-label="Date de dépôt" tabindex="-1" />
+
+  <!-- Panneau déroulant flottant de sélection de ville -->
+  <aside class="location-popover-panel hidden" id="locationPanel" aria-hidden="true" role="dialog" aria-label="Choisir le lieu de stockage">
+    <div class="panel-search-box">
+      <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="citySearchInput" placeholder="Entrez une ville (ex: Marrakech, Rabat, Paris)..." data-i18n-placeholder="search_input_placeholder" autocomplete="off" aria-label="Nom de la ville" />
+    </div>
+
+    <button type="button" class="my-location-row" id="btnUseMyLocation">
+      <div class="loc-icon-circle">
+        <svg class="icon-gold" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+        </svg>
+      </div>
+      <div class="loc-text-group">
+        <span class="loc-title" data-i18n="search_my_loc_title">Ma position actuelle</span>
+        <span class="loc-subtitle" data-i18n="search_my_loc_sub">Trouver les consignes autour de moi (GPS)</span>
+      </div>
+    </button>
+
+    <div class="popular-section">
+      <div class="section-label" data-i18n="search_popover_title">Destinations populaires au Maroc &amp; Monde</div>
+      <ul class="cities-list" role="listbox" aria-label="Liste des villes populaires">
+        <li data-city="Marrakesh" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Marrakech</span></li>
+        <li data-city="Casablanca" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Casablanca</span></li>
+        <li data-city="Rabat" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Rabat</span></li>
+        <li data-city="Fes" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Fès</span></li>
+        <li data-city="Tangier" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Tanger</span></li>
+        <li data-city="Agadir" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Agadir</span></li>
+        <li data-city="Essaouira" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Essaouira</span></li>
+        <li data-city="Dakhla" role="option" tabindex="0"><span class="city-pin">🇲🇦</span> <span>Dakhla</span></li>
+        <li data-city="Paris" role="option" tabindex="0"><span class="city-pin">🇫🇷</span> <span>Paris</span></li>
+        <li data-city="London" role="option" tabindex="0"><span class="city-pin">🇬🇧</span> <span>Londres</span></li>
+        <li data-city="Madrid" role="option" tabindex="0"><span class="city-pin">🇪🇸</span> <span>Madrid</span></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Carte Leaflet plein écran -->
+  <main class="map-viewport">
+    <div id="searchMap" class="fullscreen-map" aria-label="Carte interactive Leaflet des consignes à bagages"></div>
+
+    <!-- TIROIR FLOTTANT (DRAWER) MODIFIÉ POUR ÊTRE IDENTIQUE À NANNYBAG -->
+    <aside class="floating-results-drawer nanny-partner-drawer" id="resultsDrawer" aria-live="polite">
+      
+      <!-- VUE 1 : Liste des consignes d'une ville (quand aucun partenaire n'est sélectionné) -->
+      <div id="drawerListView" class="drawer-view">
+        <div class="drawer-header">
+          <h2 id="drawerTitle" data-i18n="search_spots_default_title">Points de consigne</h2>
+          <span class="spots-badge" id="spotsCount">0 consigne</span>
+        </div>
+        <div class="results-cards-scroll" id="spotsList"></div>
+      </div>
+
+      <!-- VUE 2 : Panneau de détails & réservation du partenaire sélectionné (identique à la capture Nannybag) -->
+      <div id="drawerDetailView" class="drawer-view hidden">
+        
+        <!-- En-tête du volet partenaire -->
+        <div class="partner-drawer-header">
+          <div class="partner-header-top">
+            <button type="button" id="btnBackToSpotsList" class="partner-back-btn" aria-label="Retour à la liste des consignes" title="Retour à la liste">
+              ←
+            </button>
+            <div class="partner-title-wrap">
+              <h2 id="partnerSpotTitle" class="partner-spot-title">Near Dar Si Said Museum</h2>
+              <div class="partner-meta-row">
+                <span class="partner-rating-badge" id="partnerSpotRating">4,9 ★★★★★ (142 avis)</span>
+                <span class="partner-open-status" id="partnerSpotStatus">
+                  <span class="pulse-dot"></span>
+                  <span id="partnerStatusText" data-i18n="partner_status_open">Ouvert · 24h/24, 7j/7</span>
+                </span>
+              </div>
+            </div>
+            <button type="button" id="btnClosePartnerDetail" class="partner-close-btn" aria-label="Fermer le volet">
+              &times;
+            </button>
+          </div>
+
+          <!-- Onglets de navigation : Réserver / Horaires / Avis / Comment ça marche -->
+          <nav class="drawer-tabs" role="tablist">
+            <button type="button" class="drawer-tab active" data-tab="tab-book" role="tab" aria-selected="true" data-i18n="tab_book">
+              Réserver
+            </button>
+            <button type="button" class="drawer-tab" data-tab="tab-hours" role="tab" aria-selected="false" data-i18n="tab_hours">
+              Horaires
+            </button>
+            <button type="button" class="drawer-tab" data-tab="tab-reviews" role="tab" aria-selected="false" data-i18n="tab_reviews">
+              Avis
+            </button>
+            <button type="button" class="drawer-tab" data-tab="tab-how" role="tab" aria-selected="false" data-i18n="tab_how">
+              Comment ça marche
+            </button>
+          </nav>
+        </div>
+
+        <!-- Corps à défilement avec contenu des onglets -->
+        <div class="partner-drawer-body">
+          
+          <!-- ONGLET 1 : RÉSERVER (3 types de bagages avec compteurs et choix de dates) -->
+          <div id="tab-book" class="drawer-tab-content active" role="tabpanel">
+            
+            <div class="luggage-categories-list">
+              
+              <!-- Catégorie 1 : Ordinaire (Valise, sac à dos) -->
+              <div class="luggage-card-item" data-category="ordinary">
+                <div class="luggage-item-left">
+                  <div class="luggage-icon-circle green">
+                    <!-- Icône Valise -->
+                    <svg class="icon-gold" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="6" y="7" width="12" height="14" rx="2"></rect>
+                      <path d="M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"></path>
+                      <line x1="6" y1="11" x2="18" y2="11"></line>
+                    </svg>
+                  </div>
+                  <div class="luggage-item-info">
+                    <h4 class="luggage-name" data-i18n="luggage_ordinary_title">Ordinaire</h4>
+                    <p class="luggage-sub" data-i18n="luggage_ordinary_desc">Valise, sac à dos</p>
+                    <span class="luggage-price" id="priceOrdinaryLabel">35,00 MAD / jour</span>
+                  </div>
+                </div>
+                <div class="stepper-pill">
+                  <button type="button" class="stepper-btn" data-step="minus" data-cat="ordinary" aria-label="Diminuer">-</button>
+                  <span class="stepper-value" id="countOrdinary">1</span>
+                  <button type="button" class="stepper-btn" data-step="plus" data-cat="ordinary" aria-label="Augmenter">+</button>
+                </div>
+              </div>
+
+              <!-- Catégorie 2 : Petit (Sac à main, tote bag, sac cabas) -->
+              <div class="luggage-card-item" data-category="small">
+                <div class="luggage-item-left">
+                  <div class="luggage-icon-circle mint">
+                    <!-- Icône Sac à main -->
+                    <svg class="icon-gold" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9h12l-1.5 12H7.5L6 9z"></path>
+                      <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+                    </svg>
+                  </div>
+                  <div class="luggage-item-info">
+                    <h4 class="luggage-name" data-i18n="luggage_small_title">Petit</h4>
+                    <p class="luggage-sub" data-i18n="luggage_small_desc">Sac à main, tote bag, sac cabas</p>
+                    <span class="luggage-price" id="priceSmallLabel">25,00 MAD / jour</span>
+                  </div>
+                </div>
+                <div class="stepper-pill">
+                  <button type="button" class="stepper-btn" data-step="minus" data-cat="small" aria-label="Diminuer">-</button>
+                  <span class="stepper-value" id="countSmall">0</span>
+                  <button type="button" class="stepper-btn" data-step="plus" data-cat="small" aria-label="Augmenter">+</button>
+                </div>
+              </div>
+
+              <!-- Catégorie 3 : De taille inhabituelle (Vélo, planche de surf, sac de golf) -->
+              <div class="luggage-card-item" data-category="oversized">
+                <div class="luggage-item-left">
+                  <div class="luggage-icon-circle sage">
+                    <!-- Icône Matériel de sport / Surf -->
+                    <svg class="icon-gold" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <ellipse cx="12" cy="12" rx="4" ry="9" transform="rotate(-30 12 12)"></ellipse>
+                      <path d="M12 3v18"></path>
+                    </svg>
+                  </div>
+                  <div class="luggage-item-info">
+                    <h4 class="luggage-name" data-i18n="luggage_oversized_title">De taille inhabituelle</h4>
+                    <p class="luggage-sub" data-i18n="luggage_oversized_desc">Vélo, planche de surf, sac de golf</p>
+                    <span class="luggage-price" id="priceOversizedLabel">50,00 MAD / jour</span>
+                  </div>
+                </div>
+                <div class="stepper-pill">
+                  <button type="button" class="stepper-btn" data-step="minus" data-cat="oversized" aria-label="Diminuer">-</button>
+                  <span class="stepper-value" id="countOversized">0</span>
+                  <button type="button" class="stepper-btn" data-step="plus" data-cat="oversized" aria-label="Augmenter">+</button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Sélecteur rapide des dates de Dépôt et de Retrait -->
+            <div class="drawer-dates-box">
+              <div class="drawer-date-col">
+                <label for="drawerDropDate" class="drawer-date-label" data-i18n="modal_date_label">Date de dépôt</label>
+                <input type="date" id="drawerDropDate" class="drawer-date-input" />
+              </div>
+              <div class="drawer-date-col">
+                <label for="drawerPickupDate" class="drawer-date-label" data-i18n="modal_pickup_label">Date de retrait</label>
+                <input type="date" id="drawerPickupDate" class="drawer-date-input" />
+              </div>
+            </div>
+
+            <div class="drawer-assurance-badge">
+              <svg class="icon-gold" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span data-i18n="drawer_guarantee_text">Garantie 100 000 DH &amp; scellés de sécurité inclus sans frais.</span>
+            </div>
+          </div>
+
+          <!-- ONGLET 2 : HORAIRES DU PARTENAIRE -->
+          <div id="tab-hours" class="drawer-tab-content" role="tabpanel">
+            <div class="partner-address-card">
+              <div class="partner-name" id="partnerAddressName">Point de consigne certifié</div>
+              <p class="partner-address" id="partnerAddressFull">Derb Dabachi, Médina, Marrakech</p>
+            </div>
+
+            <div class="hours-schedule-list" id="partnerHoursList">
+              <!-- Rempli dynamiquement en JS -->
+            </div>
+          </div>
+
+          <!-- ONGLET 3 : AVIS CLIENTS -->
+          <div id="tab-reviews" class="drawer-tab-content" role="tabpanel">
+            <div class="reviews-score-summary">
+              <span class="big-score" id="partnerReviewsScore">4.9</span>
+              <div>
+                <div class="star-rating">★★★★★</div>
+                <div class="partner-reviews" id="partnerReviewsTotal">Basé sur 142 avis récents</div>
+              </div>
+            </div>
+
+            <div class="partner-reviews-feed" id="partnerReviewsFeed">
+              <!-- Rempli dynamiquement en JS -->
+            </div>
+          </div>
+
+          <!-- ONGLET 4 : COMMENT ÇA MARCHE -->
+          <div id="tab-how" class="drawer-tab-content" role="tabpanel">
+            <div class="drawer-steps-list">
+              <div class="drawer-step-item">
+                <span class="drawer-step-num">1</span>
+                <div>
+                  <h4 class="drawer-step-title" data-i18n="step1_title">Réservez en ligne en quelques secondes</h4>
+                  <p class="drawer-step-text" data-i18n="step1_text">Recevez votre bon de confirmation numérique instantané.</p>
+                </div>
+              </div>
+
+              <div class="drawer-step-item">
+                <span class="drawer-step-num">2</span>
+                <div>
+                  <h4 class="drawer-step-title" data-i18n="step2_title">Déposez vos bagages</h4>
+                  <p class="drawer-step-text" data-i18n="step2_text">Montrez votre QR pass. Le partenaire applique des scellés de sécurité.</p>
+                </div>
+              </div>
+
+              <div class="drawer-step-item">
+                <span class="drawer-step-num">3</span>
+                <div>
+                  <h4 class="drawer-step-title" data-i18n="step3_title">Profitez les mains libres</h4>
+                  <p class="drawer-step-text" data-i18n="step3_text">Récupérez vos affaires à tout moment en scannant votre QR code.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pied fixe du tiroir : Bouton d'action principal style Nannybag -->
+        <div class="partner-drawer-footer">
+          <button type="button" id="btnContinueDrawerBooking" class="btn-drawer-cta">
+            <span id="drawerCtaLabel" data-i18n="drawer_btn_choose_dates">Choisir les dates</span>
+          </button>
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- Boutons d'action en bas à droite -->
+    <div class="bottom-right-controls">
+      <button type="button" id="btnNearMe" class="btn-near-me-floating" aria-label="Trouver des consignes près de moi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+        </svg>
+        <span data-i18n="search_near_me_btn">Près de moi</span>
+      </button>
+      
+      <button type="button" class="fab-chat-btn" aria-label="Contacter le support 24/7" title="Support voyageur 24/7">💬</button>
+    </div>
+  </main>
+
+  <!-- Modal de confirmation & génération du pass QR -->
+  <div id="bookingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalSpotTitle">
+    <div class="modal-card">
+      <button id="closeBookingModal" class="modal-close-btn" aria-label="Fermer la modal">&times;</button>
+      <div id="bookingModalContent">
+        <div class="mb-20">
+          <span class="spot-type-tag" id="modalSpotType">Hôtel</span>
+          <h3 class="modal-spot-title" id="modalSpotTitle">Point de consigne</h3>
+          <p class="modal-spot-location" id="modalSpotLocation" data-i18n="modal_verified_tag">Point de consigne vérifié</p>
+        </div>
+
+        <form id="bookingModalForm">
+          <div class="modal-two-cols">
+            <div class="form-group">
+              <label class="form-label" for="bookingDropDate" data-i18n="modal_date_label">Date de dépôt</label>
+              <input type="date" id="bookingDropDate" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bookingPickupDate" data-i18n="modal_pickup_label">Date de retrait</label>
+              <input type="date" id="bookingPickupDate" class="form-input" required />
+            </div>
+          </div>
+
+          <div class="bag-counter-box">
+            <div>
+              <span class="modal-label-strong" data-i18n="modal_bags_label">Nombre de bagages</span>
+              <span class="modal-label-sub" data-i18n="modal_bags_sub">Tous formats et poids acceptés sans supplément</span>
+            </div>
+            <div class="counter-control">
+              <button type="button" id="bagCountMinus" class="counter-btn" aria-label="Diminuer bagages">-</button>
+              <span class="modal-count" id="modalBagCountDisplay">2</span>
+              <button type="button" id="bagCountPlus" class="counter-btn" aria-label="Augmenter bagages">+</button>
+            </div>
+          </div>
+
+          <div class="form-group mb-12">
+            <label class="form-label" for="bookingCustomerName" data-i18n="modal_name_label">Nom complet</label>
+            <input type="text" id="bookingCustomerName" class="form-input" placeholder="ex. Alex Dupont" required />
+          </div>
+
+          <div class="form-group mb-16">
+            <label class="form-label" for="bookingCustomerEmail" data-i18n="modal_email_label">Adresse e-mail</label>
+            <input type="email" id="bookingCustomerEmail" class="form-input" placeholder="ex. alex@gmail.com" required />
+          </div>
+
+          <div class="price-summary-box">
+            <div class="price-row">
+              <span data-i18n="modal_price_storage">Consigne bagages</span>
+              <span class="modal-price" id="modalPriceSubtotal">70,00 MAD</span>
+            </div>
+            <div class="price-row">
+              <span data-i18n="modal_price_insurance">Garantie de protection 100 000 DH</span>
+              <span class="text-gold-strong" data-i18n="modal_price_included">INCLUS</span>
+            </div>
+            <div class="price-row">
+              <span data-i18n="modal_price_seals">Scellés de sécurité inviolables</span>
+              <span class="text-gold-strong" data-i18n="modal_price_free">GRATUIT</span>
+            </div>
+            <div class="price-row price-total">
+              <span data-i18n="modal_price_total">Montant total</span>
+              <span id="modalPriceTotal">70,00 MAD</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">
+            <span data-i18n="modal_submit_btn_text">Confirmer &amp; Générer le Pass QR • </span>
+            <span id="modalSubmitPrice">70,00 MAD</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastNotification" class="toast-box" role="status" aria-live="polite"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Script Maître -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
